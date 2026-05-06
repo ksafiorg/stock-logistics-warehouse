@@ -58,12 +58,24 @@
         <field eval="1" name="perm_read" />
         <field eval="1" name="perm_create" />
     </record>
-    <record id="ir_rule_stock_move_line_allowed_warehouse" model="ir.rule">
-        <field name="name">Stock moves lines from allowed Warehouse</field>
+    <record id="ir_rule_stock_move_line_allowed_warehouse_by_source" model="ir.rule">
+        <field name="name">Stock moves from allowed Warehouse by source location</field>
         <field name="model_id" ref="stock.model_stock_move_line" />
         <field
             name="domain_force"
-        >['|',  (1 if user.warehouse_ids.ids == [] else 0, "=", 1), '|', ('picking_type_id.warehouse_id', '=', False), ('picking_type_id.warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+        >['|',  (1 if user.warehouse_ids.ids == [] else 0, "=", 1), '|', ('location_id.warehouse_id', '=', False), ('location_id.warehouse_id', 'in', user.warehouse_ids.ids)]</field>
+        <field eval="1" name="perm_unlink" />
+        <field eval="1" name="perm_write" />
+        <field eval="1" name="perm_read" />
+        <field eval="1" name="perm_create" />
+    </record>
+
+    <record id="ir_rule_stock_move_line_allowed_warehouse_by_dest" model="ir.rule">
+        <field name="name">Stock move lines from allowed Warehouse by destination location</field>
+        <field name="model_id" ref="stock.model_stock_move_line" />
+        <field
+            name="domain_force"
+        >['|',  (1 if user.warehouse_ids.ids == [] else 0, "=", 1), '|', ('location_dest_id.warehouse_id', '=', False), ('location_dest_id.warehouse_id', 'in', user.warehouse_ids.ids)]</field>
         <field eval="1" name="perm_unlink" />
         <field eval="1" name="perm_write" />
         <field eval="1" name="perm_read" />
